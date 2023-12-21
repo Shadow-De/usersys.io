@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: black; /* Set font color to black */
+        }
+
+        header {
+            background-color: #e74c3c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: black;
+			font-weight:bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #c0392b;
+        }
+
+        footer {
+            background-color: #e74c3c;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <script>
+        function handleSubmit() {
+            var customerContact = document.getElementById('customerContact').value;
+            var customerName = document.getElementById('customerName').value;
+            var issue = document.getElementById('issue').value;
+            var department = document.getElementById('department').value;
+
+            // Send data to Google Apps Script
+            fetch('https://script.google.com/macros/s/AKfycbyT_ZmvZegvzhO3zT_-UWDR5ppAoSahm3GVRx1ZZ57Ki6QCH3fD9dkOE3_K5kKU_67q/exec?customerContact=' + encodeURIComponent(customerContact) +
+                  '&customerName=' + encodeURIComponent(customerName) +
+                  '&issue=' + encodeURIComponent(issue) +
+                  '&department=' + encodeURIComponent(department), {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Form data saved successfully.');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>Customer Details</h1>
+    </header>
+
+    <form onsubmit="handleSubmit(); return false;">
+        <label for="customerContact">Contact number:</label>
+        <input type="text" id="customerContact" required>
+
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" required>
+
+        <label for="issue">Issue:</label>
+        <input type="text" id="issue" required>
+
+        <label for="department">Department:</label>
+        <select id="department" required>
+            <option value="Support">Support</option>
+            <option value="Sales">Sales</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <footer>
+        Powered by TechGates
+    </footer>
+
+</body>
+</html>
